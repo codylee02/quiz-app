@@ -5,7 +5,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: #4D47CC;
-
+    width: 100%;
 }
 
 button:hover {
@@ -35,7 +35,6 @@ button:hover {
 
 button {
     border: 1px solid #FFDAB3;
-    font-weight: ;
     border-radius: 10px;
     color: black;
     background: #FFDAB3;
