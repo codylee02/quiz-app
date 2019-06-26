@@ -6,7 +6,7 @@ function renderStartPage() {
     `<div id="quiz-homepage">
             <h1>Car Quiz</h1>
             <h2>Test your basic car knowledge!</h2>
-            <div><i class="material-icons">directions_car</i></div>
+            <div><i class="material-icons" id="car">directions_car</i></div>
             <button class="quiz-begin js-quiz-begin">
                 <span class="button-label">Ready? Set. Go!</span>
             </button>
