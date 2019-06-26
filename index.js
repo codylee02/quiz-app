@@ -21,8 +21,8 @@ function beginQuiz() {
         console.log(`you clicked begin quiz`);
         
         //reset questionNumber and quizScore
-        questionNumber = 1;
-        quizScore = 0;
+        questionNumber = 10;
+        quizScore = 9;
         generateQuestion();
     });
     
