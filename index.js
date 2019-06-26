@@ -157,7 +157,7 @@ function renderResultsPage() {
     $('.js-container').on('click', '.js-results', event => {
         $('.js-container').html(`
             <div class="feedback-container">
-                <h1>You scored ${quizScore} out of 10</h1>
+                <h1 class="feedback">You scored ${quizScore} out of 10</h1>
                 <img class="results-image" src="images/finishline.png" alt="drawing of finishline">
                 <button class="js-quiz-begin">Try again?</button>
             </div>`)
