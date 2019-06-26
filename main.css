@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding:0;
 }
 
 body {
@@ -13,9 +15,9 @@ button:hover {
 }
 
 .container {
-    margin: 10px auto;
+    margin: 200px auto;
     height: 500px;
-    width: 90%;
+    max-width: 500px;
     border: 1px white solid;
     border-radius: 15px;
     background: white;
@@ -122,4 +124,17 @@ form button {
 .quiz-begin {
     display: block;
     
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 768px;
+        width: 98%;
+        margin: 1%;
+    }
+    
+    h2.feedback {
+        font-size: 1.8em;
+    }
+
 }
