@@ -1,7 +1,6 @@
 'use strict';
 
 function renderStartPage() {
-    //reset questionNumber and quizScore
     //renders the initial quiz starting page
     $('.js-container').html(
     `<div id="quiz-homepage">
@@ -13,6 +12,7 @@ function renderStartPage() {
             </button>
         </div>`);
     console.log('renderStartPage ran');
+    beginQuiz();
 }
 
 function beginQuiz() {
@@ -42,12 +42,15 @@ function generateQuestion() {
     let questionIndex = questionNumber - 1;
     let questionAnswerString = `<div class="question-container">
         <span class="question">${STORE[questionIndex].question}</span>
-        <div class="answer-options">
-            <button class="answer-choice js-answer-choice">${STORE[questionIndex].answers[0]}</button>
-            <button class="answer-choice js-answer-choice">${STORE[questionIndex].answers[1]}</button>
-            <button class="answer-choice js-answer-choice">${STORE[questionIndex].answers[2]}</button>
-            <button class="answer-choice js-answer-choice">${STORE[questionIndex].answers[3]}</button>
-        </div>
+        <img class="question-image" src="images/${STORE[questionIndex].imgSrc}" alt="${STORE[questionIndex].altText}">
+        <form>
+            <fieldset>
+                <button class="js-answer-choice">${STORE[questionIndex].answers[0]}</button>
+                <button class="js-answer-choice">${STORE[questionIndex].answers[1]}</button>
+                <button class="js-answer-choice">${STORE[questionIndex].answers[2]}</button>
+                <button class="js-answer-choice">${STORE[questionIndex].answers[3]}</button>
+            </fieldset>
+        </form>
     </div>`
     
     renderQuestion(questionAnswerString);
@@ -61,12 +64,6 @@ function renderQuestion(questionAnswerString) {
 
 function updateQuestionNum () {
     questionNumber++;
-}
-
-function renderResultsPage() {
-    $('.js-container').on('click', '.js-results', event => {
-        console.log(questionNumber);
-    });
 }
 
 function handleNextQuestion () {
@@ -83,21 +80,21 @@ function handleCorrectAnswer(userAnswer) {
     renderQuizStatus();
     //handles correct answers and if user at end of quiz, displays different result page
     if (questionNumber < 10) {
-        $('.js-container').append(`<div id="answer-feedback">
+        $('.js-container').append(`<div class="feedback-container">
             <h1>Correct!</h1>
+            <i class="material-icons" id="correct">check</i>
             <h2>"${userAnswer}" is right!</h2>
-            <div><i class="material-icons" id="correct">check</i></div>
-            <button class="next-question js-next-question">
+            <button class="js-next-question">
                 <span class="button-label">Next Question</span>
             </button>
         </div>`
     )}
     else {
-        $('.js-container').append(`<div id="answer-feedback">
+        $('.js-container').append(`<div class="feedback-container">
             <h1>Correct!</h1>
+            <i class="material-icons" id="correct">check</i>
             <h2>"${userAnswer}" is right!</h2>
-            <div><i class="material-icons" id="correct">check</i></div>
-            <button class="results js-results">
+            <button class="js-results">
                 <span class="button-label">Results</span>
             </button>
         </div>`
@@ -111,22 +108,24 @@ function handleWrongAnswer(userAnswer) {
     renderQuizStatus();
     if (questionNumber < 10) {
     $('.js-container').append(
-        `<div id="answer-feedback">
+        `<div class="feedback-container">
             <h1>Incorrect</h1>
+            <i class="material-icons" id="wrong">close</i>
             <h2>"${userAnswer}" is wrong.</h2>
-            <div><i class="material-icons" id="wrong">close</i></div>
-            <button class="next-question js-next-question">
+            <h2>"${STORE[questionNumber - 1].correctAnswer}" is the correct answer.</h2>
+            <button class="js-next-question">
                 <span class="button-label">Next Question</span>
             </button>
         </div>`
     )}
     else {
         $('.js-container').append(
-            `<div id="answer-feedback">
+            `<div class="feedback-container">
                 <h1>Incorrect</h1>
+                <i class="material-icons" id="wrong">close</i>
                 <h2>"${userAnswer}" is wrong.</h2>
-                <div><i class="material-icons" id="wrong">close</i></div>
-                <button class="results js-results">
+                <h2>"${STORE[questionNumber - 1].correctAnswer}" is the correct answer.</h2>
+                <button class="js-results">
                     <span class="button-label">Results</span>
                 </button>
             </div>`
@@ -157,11 +156,10 @@ function renderResultsPage() {
     //when results is clicked, display feedback
     $('.js-container').on('click', '.js-results', event => {
         $('.js-container').html(`
-            <div id="results">
+            <div class="feedback-container">
                 <h1>You scored ${quizScore} out of 10</h1>
-                <button class="quiz-begin js-quiz-begin">
-                    <span class="button-label">Restart?</span>
-                </button>
+                <img class="results-image" src="images/finishline.png" alt="drawing of finishline">
+                <button class="js-quiz-begin">Try again?</button>
             </div>`)
         beginQuiz();
     });
@@ -174,7 +172,6 @@ function renderResultsPage() {
 //or incorrect) and restart the quiz @ the end
 function handleQuiz() {
     renderStartPage();
-    beginQuiz();
     handleAnswer();
     handleNextQuestion();
     renderResultsPage();
